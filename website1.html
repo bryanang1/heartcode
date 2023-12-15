@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <title>bully free progamme@HTML</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="assets/css/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/templatemo-villa-agency.css">
+    <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: skyblue;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            margin: 50px;
+        }
+
+        #openModalBtn {
+            font-size: 24px;
+            padding: 20px 40px;
+            /* Adjust padding to make the button bigger */
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        #openModalBtn:hover {
+            transform: scale(1.1);
+            /* Add a 3D effect on hover */
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 20% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .modal-section {
+            width: 48%;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+        #selectedAvatar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            margin: 20px;
+        }
+
+        #nameInput {
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        #credits {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            color: white;
+        }
+
+        #quiz {
+            height: 100%;
+            margin-top: 100px;
+            padding-bottom: 100px;
+        }
+    </style>
+    <title>CyberBullying Quiz Game</title>
+</head>
+
+<body>
+      <!-- ***** Header Area Start ***** -->
+
+    <div>
+        <button id="openModalBtn">Start Game</button>
+        <div id="avatarModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeModalBtn">&times;</span>
+                <div class="modal-section">
+                    <h2>Enter Your Name</h2>
+                    <input type="text" id="nameInput" placeholder="Your Name">
+                </div>
+                <div class="modal-section">
+                    <h2>Select Avatar</h2>
+                    <label>
+                        <input type="radio" name="avatar" value="girl">
+                        <img src="girl_avatar.jpg" alt="Girl Avatar" width="150" height="150">
+                    </label>
+                    <label>
+                        <input type="radio" name="avatar" value="boy">
+                        <img src="boy_avatar.jpg" alt="Boy Avatar" width="150" height="150">
+                    </label>
+                </div>
+                <button id="saveAvatarBtn">Save</button>
+            </div>
+        </div>
+    </div>
+    <div id="selectedAvatar"></div>
+    <div id="quiz"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const modal = document.getElementById("avatarModal");
+            const openModalBtn = document.getElementById("openModalBtn");
+            const closeModalBtn = document.getElementById("closeModalBtn");
+
+            openModalBtn.addEventListener("click", function () {
+                modal.style.display = "block";
+            });
+
+            closeModalBtn.addEventListener("click", function () {
+                modal.style.display = "none";
+            });
+
+            window.addEventListener("click", function (event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            });
+
+            const saveAvatarBtn = document.getElementById("saveAvatarBtn");
+            saveAvatarBtn.addEventListener("click", function () {
+                const avatarOptions = document.getElementsByName("avatar");
+                let selectedAvatar = null;
+
+                for (const option of avatarOptions) {
+                    if (option.checked) {
+                        selectedAvatar = option.value;
+                        break;
+                    }
+                }
+
+                const enteredName = document.getElementById("nameInput").value;
+
+                if (selectedAvatar && enteredName) {
+                    alert("Selected Avatar: " + selectedAvatar + "\nEntered Name: " + enteredName);
+
+                    const selectedAvatarDiv = document.getElementById("selectedAvatar");
+                    selectedAvatarDiv.innerHTML = `
+                    <img src="${selectedAvatar}_avatar.jpg" alt="${selectedAvatar} Avatar" width="100" height="100">
+                    <div>${enteredName}</div>
+                `;
+                    const quiz = document.getElementById("quiz")
+                    quiz.innerHTML = `
+                <form action="">
+                    <div class="questions">
+                        <p>
+                            <b>Question 1: What is cyberbullying?</b>
+                        </p>
+                
+                        <input type="radio" id="1a" name="q1" value="a">
+                        <label for="1a">Physical intimidation using technology
+                        </label>
+                        <br>
+                        <input type="radio" id="1b" name="q1" value="b">
+                        <label for="1b">Online harassment and mistreatment
+
+                        </label>
+                        <br>
+                        <input type="radio" id="1c" name="q1" value="c">
+                        <label for="1c">Virtual reality gaming
+                        </label>
+                        <br>
+                        <input type="radio" id="1d" name="q1" value="d">
+                        <label for="1d">Social media marketing
+                        </label>
+
+                    </div>
+                    <br>
+                    <div class="questions">
+                        <p>
+                            <b>Question 2: Which of the following is an example of cyberbullying?</b>
+                        </p>
+                    
+                        <input type="radio" id="2a" name="q2" value="a">
+                        <label for="2a">Sending an encouraging message to a friend
+                        </label>
+                        <br>
+                        <input type="radio" id="2b" name="q2" value="b">
+                        <label for="2b">Sharing embarrassing photos without consent  
+                        </label>
+                        <br>
+                        <input type="radio" id="2c" name="q2" value="c">
+                        <label for="2c"> Participating in a positive online discussion
+
+                        </label>
+                        <br>
+                        <input type="radio" id="2d" name="q2" value="d">
+                        <label for="2d">Ignoring someone's online post
+                        </label>
+
+                    </div>
+                    <br>
+                    <div class="questions">
+                        <p>
+                            <b>Question 3:  How can cyberbullying affect individuals?</b>
+                        </p>
+                        
+                        <input type="radio" id="3a" name="q3" value="a">
+                        <label for="3a">Improved self-esteem
+                        </label>
+                        <br>
+                        <input type="radio" id="3b" name="q3" value="b">
+                        <label for="3b">Enhanced social skills
+                        </label>
+                        <br>
+                        <input type="radio" id="3c" name="q3" value="c">
+                        <label for="3c">Emotional distress and mental health issues
+
+                        </label>
+                        <br>
+                        <input type="radio" id="3d" name="q3" value="d">
+                        <label for="3d">Physical fitness
+                        </label>
+
+                    </div>
+                    <br>
+                    <div class="questions">
+                        <p>
+                            <b>Question 4: What is the purpose of a "troll" in the context of cyberbullying?</b>
+                        </p>
+                       
+                        <input type="radio" id="4a" name="q4" value="a">
+                        <label for="4a">To promote online safety
+                        </label>
+                        <br>
+                        <input type="radio" id="4b" name="q4" value="b">
+                        <label for="4b">To engage in friendly banter
+
+                        </label>
+                        <br>
+                        <input type="radio" id="4c" name="q4" value="c">
+                        <label for="4c">To intentionally provoke and upset others
+                        </label>
+                        <br>
+                        <input type="radio" id="4d" name="q4" value="d">
+                        <label for="4d">To share useful information
+                        </label>
+
+                    </div>
+                    <br>
+                    <div class="questions">
+                        <p>
+                            <b>Question 5:  Which platform is commonly associated with cyberbullying?</b>
+
+                        </p>
+                        
+                        <input type="radio" id="5a" name="q5" value="a">
+                        <label for="5a">Educational websites
+                        </label>
+                        <br>
+                        <input type="radio" id="5b" name="q5" value="b">
+                        <label for="5b">Social media
+                        </label>
+                        <br>
+                        <input type="radio" id="5c" name="q5" value="c">
+                        <label for="5c">Online banking platforms
+                        </label>
+                        <br>
+                        <input type="radio" id="5d" name="q5" value="d">
+                        <label for="5d">Weather forecast websites
+                        </label>
+                    </div>
+                    <br>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="grade()">
+                        Check Your Answers
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Your Results</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            Grade: <span id="grade"></span> / 5
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    
+                </form>`
+
+                    openModalBtn.style.display = "none";
+                } else {
+                    alert("Please enter your name and select an avatar.");
+                }
+
+                modal.style.display = "none";
+            });
+        });
+
+        function grade() {
+            let questions = document.getElementsByClassName("questions");
+            let answers = ["b", "b", "c", "c", "b"];
+            let score = 0;
+            for (let index = 0; index < questions.length; index++) {
+                if (questions[index].querySelector("input[type='radio']:checked").value.substr(0, 1) == answers[index]) {
+                    score = score + 1;
+                }
+
+            }
+            document.getElementById("grade").innerHTML = score;
+        }
+    </script>
+    <!-- Button trigger modal -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <p id="credits">Made by: Subway Surfers</p>
+
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/isotope.min.js"></script>
+    <script src="assets/js/owl-carousel.js"></script>
+    <script src="assets/js/counter.js"></script>
+    <script src="assets/js/custom.js"></script>
+  
+</body>
+
+</html>
